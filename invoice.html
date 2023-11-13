@@ -1,0 +1,228 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Invoice</title>
+  <meta name="description" content="InvoiceGPT">
+  <style>
+    @font-face {
+      font-family: Pacifico;
+      src: url(pacifico.ttf);
+    }
+
+    @font-face {
+      font-family: Source Sans Pro;
+      font-weight: 400;
+      src: url(sourcesanspro-regular.otf);
+    }
+
+    @font-face {
+      font-family: Source Sans Pro;
+      font-weight: 700;
+      src: url(sourcesanspro-bold.otf);
+    }
+
+    @page {
+      font-family: Pacifico;
+      margin: 3cm;
+
+      @bottom-left {
+        color: #1ee494;
+        content: '♥ Thank you!';
+      }
+
+      @bottom-right {
+        color: #a9a;
+        content: '{{COMPANY_EMAIL}} | {{COMPANY_WEBSITE}}';
+        font-size: 9pt;
+      }
+    }
+
+    html {
+      color: #14213d;
+      font-family: Source Sans Pro;
+      font-size: 11pt;
+      line-height: 1.6;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    h1 {
+      color: #1ee494;
+      font-family: Pacifico;
+      font-size: 40pt;
+      margin: 0;
+    }
+
+    aside {
+      display: flex;
+      margin: 2em 0 4em;
+    }
+
+    aside address {
+      font-style: normal;
+      white-space: pre-line;
+    }
+
+    aside address#from {
+      color: #a9a;
+      flex: 1;
+    }
+
+    aside address#to {
+      text-align: right;
+    }
+
+    dl {
+      position: absolute;
+      right: 0;
+      text-align: right;
+      top: 0;
+    }
+
+    dt,
+    dd {
+      display: inline;
+      margin: 0;
+    }
+
+    dt {
+      color: #a9a;
+    }
+
+    dt::before {
+      content: '';
+      display: block;
+    }
+
+    dt::after {
+      content: ':';
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th {
+      border-bottom: .2mm solid #a9a;
+      color: #a9a;
+      font-size: 10pt;
+      font-weight: 400;
+      padding-bottom: .25cm;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding-top: 7mm;
+    }
+
+    td:last-of-type {
+      color: #1ee494;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    th,
+    td {
+      text-align: center;
+    }
+
+    th:first-of-type,
+    td:first-of-type {
+      text-align: left;
+    }
+
+    th:last-of-type,
+    td:last-of-type {
+      text-align: right;
+    }
+
+    footer {
+      content: '';
+      display: block;
+      height: 6cm;
+    }
+
+    table#total {
+      background: #f6f6f6;
+      border-color: #f6f6f6;
+      border-style: solid;
+      border-width: 2cm 3cm;
+      bottom: 0;
+      font-size: 20pt;
+      margin: 0 -3cm;
+      position: absolute;
+      width: 18cm;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Invoice</h1>
+
+  <aside>
+    <address id="from">
+      {{COMPANY_NAME}}
+      <!-- Make it nicely formatted with newlines -->
+      {{COMPANY_ADDRESS}}
+    </address>
+
+    <address id="to">
+      <!-- Make it nicely formatted with newlines -->
+      Customer: {{CUSTOMER_NAME}}
+      Address: {{CUSTOMER_ADDRESS}}
+    </address>
+  </aside>
+
+  <dl id="informations">
+    <dt>Invoice number</dt>
+    <dd>{{INVOICE_NUMBER}}</dd>
+    <dt>Date</dt>
+    <dd>{{INVOICE_DATE}}</dd>
+  </dl>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <!-- ITEM STRUCTURE IS LIKE BELOW -->
+        <td>{{ITEM_DESCRIPTION}}</td>
+        <td>{{ITEM_PRICE}}</td>
+        <td>{{ITEM_QUANTITY}}</td>
+        <td>{{ITEM_SUBTOTAL}}</td>
+      </tr>
+      <!-- ADD MORE ITEMS HERE USING ITEM STRUCTURE ABOVE-->
+    </tbody>
+  </table>
+
+  <footer>
+    <table id="total">
+      <thead>
+        <tr>
+          <th>Due by</th>
+          <th>Account number</th>
+          <th>Total due</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{INVOICE_DUE_BY}}</td>
+          <td>{{ACCOUNT_NUMBER}}</td>
+          <td>{{INVOICE_TOTAL_AMOUNT_DUE}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </footer>
+</body>
+
+</html>
